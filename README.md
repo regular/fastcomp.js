@@ -1,3 +1,8 @@
+This is my fork of llvm.js - I am basically messing around iwth it, testing out some ideas.
+
+---
+Original readme follows
+
 llvm.js
 =======
 
