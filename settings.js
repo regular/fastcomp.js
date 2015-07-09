@@ -35,7 +35,7 @@ var ASSERTIONS = 1; // Whether we should add runtime assertions, for example to
                     // if code flow runs into a fault
 var VERBOSE = 0; // When set to 1, will generate more verbose output during compilation.
 
-var INVOKE_RUN = 1; // Whether we will call run(). Disable if you embed the generated
+var INVOKE_RUN = 0; // Whether we will call run(). Disable if you embed the generated
                     // code in your own, and will call run() yourself at the right time
 var INIT_STACK = 0; // Whether to initialize memory on the stack to 0.
 var INIT_HEAP = 0; // Whether to initialize memory anywhere other than the stack to 0.
@@ -83,7 +83,7 @@ var UNALIGNED_MEMORY = 0; // If enabled, all memory accesses are assumed to be u
                           // typed arrays mode 2 where alignment is relevant.) In unaligned memory mode, you
                           // can run nonportable code that typically would break in JS (or on ARM for that
                           // matter, which also cannot do unaligned reads/writes), at the cost of slowness
-var PRECISE_I64_MATH = 1; // If enabled, i64 addition etc. is emulated - which is slow but precise. If disabled,
+var PRECISE_I64_MATH = 2; // If enabled, i64 addition etc. is emulated - which is slow but precise. If disabled,
                           // we use the 'double trick' which is fast but incurs rounding at high values.
                           // Note that we do not catch 32-bit multiplication by default (which must be done in
                           // 64 bits for high values for full precision) - you must manually set PRECISE_I32_MUL
@@ -92,7 +92,7 @@ var PRECISE_I64_MATH = 1; // If enabled, i64 addition etc. is emulated - which i
                           // that we can't know at compile time that 64-bit math is needed. For example, if you
                           // print 64-bit values with printf, but never add them, we can't know at compile time
                           // and you need to set this to 2.
-var PRECISE_I32_MUL = 0; // If enabled, i64 math is done in i32 multiplication. This is necessary if the values
+var PRECISE_I32_MUL = 1; // If enabled, i64 math is done in i32 multiplication. This is necessary if the values
                          // exceed the JS double-integer limit of ~52 bits. This option can normally be disabled
                          // because generally i32 multiplication works ok without it, and enabling it has a big
                          // impact on performance.
@@ -150,7 +150,7 @@ var SOCKET_DEBUG = 0; // Log out socket/network data transfer.
 
 var PROFILE_MAIN_LOOP = 0; // Profile the function called in set_main_loop
 
-var DISABLE_EXCEPTION_CATCHING = 0; // Disables generating code to actually catch exceptions. If the code you
+var DISABLE_EXCEPTION_CATCHING = 1; // Disables generating code to actually catch exceptions. If the code you
                                     // are compiling does not actually rely on catching exceptions (but the
                                     // compiler generates code for it, maybe because of stdlibc++ stuff),
                                     // then this can make it much faster. If an exception actually happens,
@@ -159,7 +159,7 @@ var DISABLE_EXCEPTION_CATCHING = 0; // Disables generating code to actually catc
                                     // TODO: Make this also remove cxa_begin_catch etc., optimize relooper
                                     //       for it, etc. (perhaps do all of this as preprocessing on .ll?)
 var EXECUTION_TIMEOUT = -1; // Throw an exception after X seconds - useful to debug infinite loops
-var CHECK_OVERFLOWS = 0; // Add code that checks for overflows in integer math operations.
+var CHECK_OVERFLOWS = 1; // Add code that checks for overflows in integer math operations.
                          // There is currently not much to do to handle overflows if they occur.
                          // We can add code to simulate i32/i64 overflows in JS, but that would
                          // be very slow. It probably makes more sense to avoid overflows in
@@ -167,7 +167,7 @@ var CHECK_OVERFLOWS = 0; // Add code that checks for overflows in integer math o
                          // some factor, in order to get 'random' hash values - by taking
                          // that |value & hash_table_size| - then multiplying enough times will overflow.
                          // But instead, you can do |value = value & 30_BITS| in each iteration.
-var CHECK_SIGNED_OVERFLOWS = 0; // Whether to allow *signed* overflows - our correction for overflows generates signed
+var CHECK_SIGNED_OVERFLOWS = 1; // Whether to allow *signed* overflows - our correction for overflows generates signed
                                 // values (since we use &). This means that we correct some things are not strictly overflows,
                                 // and we cause them to be signed (which may lead to unnecessary unSign()ing later).
                                 // With this enabled, we check signed overflows for CHECK_OVERFLOWS
@@ -212,7 +212,7 @@ var EXPORTED_FUNCTIONS = ['_main']; // Functions that are explicitly exported. T
                                     // the generated code even after running closure compiler (on "Module").
                                     // Note the necessary prefix of "_".
 
-var DEFAULT_LIBRARY_FUNCS_TO_INCLUDE = ['memcpy', 'memset', 'malloc', 'free', '$Browser']; // JS library functions (C functions implemented in JS)
+var DEFAULT_LIBRARY_FUNCS_TO_INCLUDE = ['$Browser']; // JS library functions (C functions implemented in JS)
                                                                                            // that we include by default. If you want to make sure
                                                                                            // something is included by the JS compiler, add it here.
                                                                                            // For example, if you do not use some emscripten_*
@@ -279,7 +279,7 @@ var FAKE_X86_FP80 = 1; // Replaces x86_fp80 with double. This loses precision. I
                        // if you can, to get the original source code to build without x86_fp80
                        // (which is nonportable anyhow).
 
-var GC_SUPPORT = 1; // Enables GC, see gc.h (this does not add overhead, so it is on by default)
+var GC_SUPPORT = 0; // Enables GC, see gc.h (this does not add overhead, so it is on by default)
 
 var WARN_ON_UNDEFINED_SYMBOLS = 0; // If set to 1, we will warn on any undefined symbols that
                                    // are not resolved by the library_*.js files. We by default

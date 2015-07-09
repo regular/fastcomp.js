@@ -246,7 +246,7 @@ function compile(raw) {
     if (singlePhase) lines = null;
     var analyzed = analyzer(intertyped);
     intertyped = null;
-    JSify(analyzed);
+    JSify(analyzed, true, ['test']);
 
     phase = null;
 
