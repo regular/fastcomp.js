@@ -67,15 +67,18 @@ remove TableGen from utils/Makefile
 
 ###
 
-Tring homebrew emscripten and llvm-3.6.1
+Trying homebrew emscripten and llvm-3.6.1
 
     mkdir build
     cd build
     emconfigure ../configure --enable-optimized --enable-targets=x86 --enable-libcpp --disable-jit --disable-threads --disable-pthreads
+
 did native build with same options
 put #undefs before enum feturing fopen64 and friends
+(that's a change in an llvm header to work around #define vandalism in emscripten)
 same for fstat stuff
-    
+buld produces output Release+Assert/bin. The files don't have a suffix, but they actually are bc files.
+
  
 ---
 Original readme follows
