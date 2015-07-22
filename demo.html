@@ -67,7 +67,7 @@ entry:
 <input value="optimize & compile" type="button" onclick="doItAll()">
 <hr>
 <p>
-  This demo works by using parts of the LLVM toolchain (llvm-dis, llvm-as, opt, llc), compiled by <a href="http://emscripten.org/">emscripten</a> from C++ to JavaScript, to check the assembly for errors, optimize, and pretty-print it. The optimized assembly is then run through llc (emscripten-fastcomp) to convert it into JavaScript.
+  This demo works by using parts of the LLVM toolchain (llvm-dis, llvm-as, opt, llc), compiled by <a href="http://emscripten.org/">emscripten</a> from C++ to JavaScript, to check the assembly for errors, optimize, and pretty-print it. The optimized assembly is then run through llc (emscripten-fastcomp) to convert it into JavaScript. Everything happens in the browser. There's no server-side code involved.
 </p>
 <p>
 This demo has hardly been tested, there might be things that do not work.
