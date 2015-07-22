@@ -5,6 +5,8 @@ LLVM llc and emscripten-fastcomp compiled to JavaScript using Emscripten
 
 Inspired by [kripken/llvm.js](http://github.com/kripken/llvm.js)
 
+## [DEMO](http://regular.github.io/fastcomp.js/demo.html)
+
 How to build
 ------------
 
