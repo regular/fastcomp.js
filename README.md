@@ -1,9 +1,9 @@
-llvm.js
+fastcomp.js
 =======
 
-LLVM compiled to JavaScript using Emscripten
+LLVM llc and emscripten-fastcomp compiled to JavaScript using Emscripten
 
-forked from kripken/llvm.js
+Inspired by [kripken/llvm.js](http://github.com/kripken/llvm.js)
 
 How to build
 ------------
@@ -16,20 +16,23 @@ How to build
     ```
     > Follow hombrew's instruction on how to edit ~/.emscripten
     
-2. Generte the Bitcode files
+2. get emscripten-fastcomp (a fork of llvm) 
 
     ``` shell
-    git clone https://github.com/regular/emscripten-fastcomp
+    git clone https://github.com/kripken/emscripten-fastcomp
     cd emscripten-fastcomp
-    git checkout emscripten-build-fix
-    ./make-bitcode-for-javascript.sh
+    git checkout incoming
+    cd -
     ```
-    > This wil take *a very long time* to complete.
+
+2. Generte the Bitcode files
+    
+    > clone and follow instructions in [regular/make-llvm-bitcode-for-javascript](http://github.com/regular/make-llvm-bitcode-for-javascript)
 
 3. Copy relevant Bitcode files
 
     ``` shell
-    cp ../emscripten-fastcomp/bitcode-for-javascript/{llvm-as, llvm-dis, opt} .
+    cp ../make-llvm-bitcode-for-javascript/bitcode-for-javascript/{llvm-as, llvm-dis, opt, llc} .
     ```
 
 4. Generate Javascript
@@ -37,5 +40,4 @@ How to build
     ``` shell
     ./doit.sh
     ```
-    
 

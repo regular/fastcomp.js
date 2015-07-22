@@ -1,4 +1,4 @@
-node opt.js -S -O3 -  <<"IR_END"
+node opt-cli.js -S -O3 -  <<"IR_END"
 define double @test(double %x) {
 entry:
         %addtmp = fadd double 3.000000e+00, %x

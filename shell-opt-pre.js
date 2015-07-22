@@ -1,9 +1,9 @@
 
 var llvmOpt = function(bitcode) {
   var Module = {
-    arguments: ['llvm.bc', '-o', 'llvm-optimized.bc'],
+    arguments: ['-O3', '-o', 'llvm-optimized.bc', 'llvm-orig.bc'],
     preRun: function() {
-      FS.createDataFile('/', 'llvm.bc', bitcode, true, false);
+      FS.createDataFile('/', 'llvm-orig.bc', bitcode, true, false);
     }
   };
 
